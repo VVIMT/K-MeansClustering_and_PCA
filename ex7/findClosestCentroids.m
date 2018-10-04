@@ -22,15 +22,25 @@ idx = zeros(size(X,1), 1);
 %
 
 
-for i = 1:size(X, 1)
-	tmp = -1;
-	for j = 1:K
-		if tmp == -1 || norm(X(i, :)-centroids(j, :), size(X, 2)) < tmp
-			idx(i) = j;
-			tmp = norm(X(i, :)-centroids(j, :), size(X, 2));
-		endif;
-	end;
-end;
+%for i = 1:size(X, 1)
+%	tmp = -1;
+%	for j = 1:K
+%		if tmp == -1 || norm(X(i, :)-centroids(j, :), size(X, 2)) < tmp
+%			idx(i) = j;
+%			tmp = norm(X(i, :)-centroids(j, :), size(X, 2));
+%		endif;
+%	end;
+%end;
+
+m = size(X, 1);
+tmp_d = zeros(K, 1);
+for i=1:m,
+    x = X(i,:);
+    for j=1:K,
+        tmp_d(j) = norm(x - centroids(j,:));
+    end
+    [v, idx(i)] = min(tmp_d);
+end
 
 % =============================================================
 
